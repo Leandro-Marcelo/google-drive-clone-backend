@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String        @id
+  active         Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  email          String        @unique(map: "User_email_key")
+  name           String        @db.VarChar(100)
+  password       String
+  profilePicture String?
+  updatedAt      DateTime      @updatedAt
+  files          File[]
+  folders        Folder[]
+  subscription   Subscription?
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  fileName     String   @unique(map: "File_fileName_key")
+  folderId     Int?
+  originalName String
+  userId       String
+  updatedAt    DateTime @updatedAt
+  imgSrc       String
+  folder       Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade, map: "File_folderId_fkey")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "File_userId_fkey")
+
+  @@index([folderId], map: "File_folderId_fkey")
+  @@index([userId], map: "File_userId_fkey")
+}
+
+model Folder {
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  originalName   String
+  userId         String
+  updatedAt      DateTime @updatedAt
+  parentFolderId Int?
+  parentFolder   Folder?  @relation("folderTofolder", fields: [parentFolderId], references: [id], map: "Folder_parentFolderId_fkey")
+  childFolders   Folder[] @relation("folderTofolder")
+  user           User     @relation(fields: [userId], references: [id], map: "Folder_userId_fkey")
+  files          File[]
+
+  @@index([parentFolderId], map: "Folder_parentFolderId_fkey")
+  @@index([userId], map: "Folder_userId_fkey")
+}
+
+model Subscription {
+  id                   Int               @id @default(autoincrement())
+  stripeCustomerId     String            @unique(map: "Subscription_stripeCustomerId_key")
+  stripeSubscriptionId String?           @unique
+  paypalSubscriptionId String?           @unique
+  createdAt            DateTime          @default(now())
+  type                 subscription_type @default(FREE)
+  userId               String            @unique(map: "Subscription_userId_key")
+  updatedAt            DateTime          @updatedAt
+  user                 User              @relation(fields: [userId], references: [id], map: "Subscription_userId_fkey")
+}
+
+enum subscription_type {
+  FREE
+  PREMIUM
+  ENTERPRISE
+}
