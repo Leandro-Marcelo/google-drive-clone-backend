@@ -3,8 +3,15 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import * as http from "http"
+import passport from "passport"
+import session from "express-session"
 
+// * ROUTES
 import routes from "./routes"
+
+// * PASSPORT STRATEGIES
+import { useGoogleStrategy } from "./middlewares/authProvider"
+import { JWT_SECRET } from "../../../domain/configs"
 
 export class Server {
   private readonly _port: string
@@ -23,13 +30,25 @@ export class Server {
     this._app.use(express.json())
     // this._app.use(express.urlencoded({ extended: false }))
     this._app.use(cookieParser())
-    this._app.get("/", (req, res) => {
-      res.json({
-        message: "REST API Google Drive Clone. Created by Leandro Marcelo",
+    // * AUTH PROVIDERS
+    this._app.use(
+      session({
+        secret: JWT_SECRET,
+        resave: false,
+        saveUninitialized: false,
       })
+    )
+    this._app.use(passport.initialize())
+    passport.use("google", useGoogleStrategy())
+
+    // * ./ AUTH PROVIDERS
+    this._app.get("/", (req, res) => {
+      res.send(`<h1
+        style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 100vh; margin: 0; padding: 0; font-size: 1rem;">
+        API Google Drive Clone. Created by Leandro Marcelo</h1>`)
     })
     this._app.get("/health", (req, res) => {
-      res.status(200).send("OK")
+      res.status(200).send("ok")
     })
     this._app.use(routes)
   }

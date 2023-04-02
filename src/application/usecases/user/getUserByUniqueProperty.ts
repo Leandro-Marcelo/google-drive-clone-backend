@@ -4,14 +4,14 @@ import { UserRepository } from "../../../domain/repositories/userRepository"
 import { GetUserParams } from "../../../domain/utils/interfaces"
 
 export class GetUserByUniqueProperty {
-  private readonly _userRespository: UserRepository
+  private readonly _userRepository: UserRepository
 
   constructor(userRepository: UserRepository) {
-    this._userRespository = userRepository
+    this._userRepository = userRepository
   }
 
   async run(params: GetUserParams): Promise<Omit<User, "password">> {
-    const foundUser = await this._userRespository.getUser(
+    const foundUser = await this._userRepository.getUser(
       params.condition,
       params.conditionValue
     )

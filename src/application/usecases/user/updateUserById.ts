@@ -7,14 +7,14 @@ import { User } from "../../../domain/entities/user"
 import { UserRepository } from "../../../domain/repositories/userRepository"
 
 export class UpdateUserByIdUseCase {
-  private readonly _userRespository: UserRepository
+  private readonly _userRepository: UserRepository
 
   constructor(userRepository: UserRepository) {
-    this._userRespository = userRepository
+    this._userRepository = userRepository
   }
 
   async run(params: UpdateUserByIdParams): Promise<Omit<User, "password">> {
-    const foundUser = await this._userRespository.getUser("id", params.userId)
+    const foundUser = await this._userRepository.getUser("id", params.userId)
 
     if (foundUser === null) {
       throw new NotFoundException("user")
@@ -28,7 +28,7 @@ export class UpdateUserByIdUseCase {
           : params.data.password,
     }
 
-    return await this._userRespository.updateUserById(
+    return await this._userRepository.updateUserById(
       params.userId,
       userCreateInput
     )

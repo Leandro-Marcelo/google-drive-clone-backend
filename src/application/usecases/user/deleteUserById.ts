@@ -4,18 +4,18 @@ import { NotFoundException } from "../../../domain/exceptions/NotFoundException"
 import { DeleteUserByIdParams } from "../../../domain/utils/interfaces"
 
 export class DeleteUserByIdUseCase {
-  private readonly _userRespository: UserRepository
+  private readonly _userRepository: UserRepository
 
   constructor(userRepository: UserRepository) {
-    this._userRespository = userRepository
+    this._userRepository = userRepository
   }
 
   async run(params: DeleteUserByIdParams): Promise<Omit<User, "password">> {
-    const foundUser = await this._userRespository.getUser("id", params.userId)
+    const foundUser = await this._userRepository.getUser("id", params.userId)
     if (foundUser === null) {
       throw new NotFoundException("user")
     }
 
-    return this._userRespository.deleteUserById(params.userId)
+    return this._userRepository.deleteUserById(params.userId)
   }
 }

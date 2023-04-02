@@ -37,3 +37,59 @@ export interface UpdateUserByIdParams {
 export interface DeleteUserByIdParams {
   userId: string
 }
+
+// # AUTH: USE CASES AND SERVICES
+export interface GoogleUserData {
+  profile: GUProfile
+}
+
+// GU = Google User
+interface GUProfile {
+  id: string
+  displayName: string
+  name?: GUName
+  emails?: GUEmail[]
+  photos?: GUPhoto[]
+  provider: string
+  _raw: string
+  _json: GUJSON
+}
+
+interface GUJSON {
+  sub: string
+  name: string
+  given_name: string
+  family_name: string
+  picture: string
+  email: string
+  email_verified: boolean
+  locale: string
+}
+
+interface GUEmail {
+  value: string
+  verified: boolean
+}
+
+interface GUName {
+  familyName: string
+  givenName: string
+}
+
+interface GUPhoto {
+  value: string
+}
+
+export interface ProviderUserData {
+  name: string
+  email: string
+  profilePicture: string
+  provider: string
+  providerId: string
+  locale: string
+}
+
+export interface AuthenticatedUser {
+  currentUser: Omit<User, "password">
+  authJwt: string
+}
