@@ -1,4 +1,10 @@
 {
+  // FOR TESTING JEST
+  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
   "compilerOptions": {
     // DEFAULT CONFIG
     "target": "es2016",
@@ -8,6 +14,11 @@
     "strict": true,
     "skipLibCheck": true,
     // ADDED
-    "outDir": "./dist"
+    "outDir": "./dist",
+    // FOR TESTING JEST
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "checkJs": true,
+    "noImplicitAny": true
   }
 }

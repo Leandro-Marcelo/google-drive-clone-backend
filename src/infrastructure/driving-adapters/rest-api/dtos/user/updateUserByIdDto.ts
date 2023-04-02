@@ -15,7 +15,7 @@ export const updateUserByIdDto = (req: Request): UpdateUserByIdParams => {
   const partialUserCreateInputSchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    password: z.string().min(8),
+    password: z.string().min(8).nullable(),
     profilePicture: z.string().nullable(),
   })
 

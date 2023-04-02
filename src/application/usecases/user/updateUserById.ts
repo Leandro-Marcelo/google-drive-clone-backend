@@ -1,7 +1,10 @@
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException"
-import { UpdateUserByIdParams } from "../../../domain/utils/interfaces"
-import { User } from "../../../domain/entities/User"
-import { UserRepository } from "../../../domain/repositories/UserRepository"
+import {
+  UpdateUserByIdParams,
+  UserCreateInput,
+} from "../../../domain/utils/interfaces"
+import { User } from "../../../domain/entities/user"
+import { UserRepository } from "../../../domain/repositories/userRepository"
 
 export class UpdateUserByIdUseCase {
   private readonly _userRespository: UserRepository
@@ -17,9 +20,17 @@ export class UpdateUserByIdUseCase {
       throw new NotFoundException("user")
     }
 
+    const userCreateInput: UserCreateInput = {
+      ...params.data,
+      password:
+        params.data.password === null
+          ? foundUser.password
+          : params.data.password,
+    }
+
     return await this._userRespository.updateUserById(
       params.userId,
-      params.data
+      userCreateInput
     )
   }
 }

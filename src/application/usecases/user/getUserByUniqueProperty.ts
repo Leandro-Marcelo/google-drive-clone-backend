@@ -1,9 +1,9 @@
-import { User } from "../../../domain/entities/User"
+import { User } from "../../../domain/entities/user"
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException"
-import { UserRepository } from "../../../domain/repositories/UserRepository"
+import { UserRepository } from "../../../domain/repositories/userRepository"
 import { GetUserParams } from "../../../domain/utils/interfaces"
 
-export class GetUser {
+export class GetUserByUniqueProperty {
   private readonly _userRespository: UserRepository
 
   constructor(userRepository: UserRepository) {

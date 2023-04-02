@@ -1,4 +1,4 @@
-import { User } from "../entities/User"
+import { User } from "../entities/user"
 
 // # USER: USE CASES AND SERVICES
 export interface UserCreateInput {
@@ -10,6 +10,11 @@ export interface UserCreateInput {
 
 export interface UserCreateInputDB extends UserCreateInput {
   id: string
+}
+
+export interface UserCreateInputWithNullablePassword
+  extends Omit<UserCreateInput, "password"> {
+  password: string | null
 }
 
 export type FindUserConditions = "id" | "email"
@@ -26,7 +31,7 @@ export interface CreateUserParams {
 
 export interface UpdateUserByIdParams {
   userId: string
-  data: UserCreateInput
+  data: UserCreateInputWithNullablePassword
 }
 
 export interface DeleteUserByIdParams {

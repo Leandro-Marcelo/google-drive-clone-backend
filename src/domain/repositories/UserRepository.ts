@@ -4,7 +4,7 @@ import {
   UserCreateInput,
   UserCreateInputDB,
 } from "../utils/interfaces"
-import { User } from "../entities/User"
+import { User } from "../entities/user"
 
 export interface UserRepository {
   // The error is handled by the use case

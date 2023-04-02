@@ -2,13 +2,13 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { GetUser } from "../../../../../application/usecases/user/getUser"
+import { GetUserByUniqueProperty } from "../../../../../application/usecases/user/getUserByUniqueProperty"
 
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../implementations/MySQL/MySQLUserRepository"
 
 // * DTO
-import { getUserDto } from "../../dtos/user/getUserDto"
+import { getUserByUniquePropertyDto } from "../../dtos/user/getUserByUniquePropertyDto"
 
 export const getUser = async (
   req: Request,
@@ -16,10 +16,10 @@ export const getUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const getUserParams = getUserDto(req)
+    const getUserByUniquePropertyParams = getUserByUniquePropertyDto(req)
     const mySQLUserRepository = new MySQLUserRepository()
-    const getUserUseCase = new GetUser(mySQLUserRepository)
-    const users = await getUserUseCase.run(getUserParams)
+    const getUserUseCase = new GetUserByUniqueProperty(mySQLUserRepository)
+    const users = await getUserUseCase.run(getUserByUniquePropertyParams)
     res.status(200).json(users)
     return
   } catch (err) {

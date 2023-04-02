@@ -2,9 +2,7 @@ import { z } from "zod"
 import { Request } from "express"
 import { GetUserParams } from "../../../../../domain/utils/interfaces"
 
-export const getUserDto = (req: Request): GetUserParams => {
-  console.log(req.query)
-
+export const getUserByUniquePropertyDto = (req: Request): GetUserParams => {
   const findUserConditionsSchema = z.union([
     z.object({
       id: z.string().uuid(),

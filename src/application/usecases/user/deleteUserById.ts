@@ -1,5 +1,5 @@
-import { User } from "../../../domain/entities/User"
-import { UserRepository } from "../../../domain/repositories/UserRepository"
+import { User } from "../../../domain/entities/user"
+import { UserRepository } from "../../../domain/repositories/userRepository"
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException"
 import { DeleteUserByIdParams } from "../../../domain/utils/interfaces"
 
