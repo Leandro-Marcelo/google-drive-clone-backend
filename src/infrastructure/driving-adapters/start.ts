@@ -1,6 +1,6 @@
 /* import path from 'path'
 import * as dotenv from 'dotenv' */
-import { App as RestApiApp } from "./rest-api/app"
+import { App as RestApiApp } from "./rest-api/App"
 
 try {
   /* dotenv.config({

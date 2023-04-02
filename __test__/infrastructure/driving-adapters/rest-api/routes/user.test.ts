@@ -8,7 +8,7 @@ import app from "../../../../../src/infrastructure/driving-adapters/rest-api/sta
 import { User } from "../../../../../src/domain/entities/user"
 
 // * REPOSITORIES
-import { MySQLUserRepository } from "../../../../../src/infrastructure/implementations/MySQL/MySQLUserRepository"
+import { MySQLUserRepository } from "../../../../../src/infrastructure/implementations/mysql/MySQLUserRepository"
 
 const mySQLUserRepository = new MySQLUserRepository()
 

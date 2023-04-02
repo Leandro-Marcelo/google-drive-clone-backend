@@ -2,20 +2,20 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { GetAllUserUseCase } from "../../../../../application/usecases/user/getAllUser"
+import { GetAllUsersUseCase } from "../../../../../application/usecases/user/GetAllUsers"
 
 // * REPOSITORIES
-import { MySQLUserRepository } from "../../../../implementations/MySQL/MySQLUserRepository"
+import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
-export const getAllUser = async (
+export const getAllUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const mySQLUserRepository = new MySQLUserRepository()
-    const getAllUserUseCase = new GetAllUserUseCase(mySQLUserRepository)
-    const users = await getAllUserUseCase.run()
+    const getAllUsersUseCase = new GetAllUsersUseCase(mySQLUserRepository)
+    const users = await getAllUsersUseCase.run()
     res.status(200).json(users)
     return
   } catch (err) {

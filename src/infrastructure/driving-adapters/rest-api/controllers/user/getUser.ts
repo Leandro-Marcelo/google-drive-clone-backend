@@ -2,10 +2,10 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { GetUserByUniqueProperty } from "../../../../../application/usecases/user/getUserByUniqueProperty"
+import { GetUserByUniqueProperty } from "../../../../../application/usecases/user/GetUserByUniqueProperty"
 
 // * REPOSITORIES
-import { MySQLUserRepository } from "../../../../implementations/MySQL/MySQLUserRepository"
+import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
 // * DTO
 import { getUserByUniquePropertyDto } from "../../dtos/user/getUserByUniquePropertyDto"

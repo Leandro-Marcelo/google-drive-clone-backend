@@ -8,7 +8,7 @@ import { User } from "../entities/user"
 
 export interface UserRepository {
   // The error is handled by the use case
-  getAllUser: () => Promise<Omit<User, "password">[]>
+  getAllUsers: () => Promise<Omit<User, "password">[]>
   createUser: (userData: UserCreateInputDB) => Promise<Omit<User, "password">>
   updateUserById: (
     userId: string,

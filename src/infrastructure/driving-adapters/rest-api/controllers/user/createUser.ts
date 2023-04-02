@@ -2,12 +2,12 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { CreateUserUseCase } from "../../../../../application/usecases/user/createUser"
+import { CreateUserUseCase } from "../../../../../application/usecases/user/CreateUser"
 
 // * REPOSITORIES
-import { MySQLUserRepository } from "../../../../implementations/MySQL/MySQLUserRepository"
+import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 import { createUserDto } from "../../dtos/user/createUserDto"
-import { UuidV4Generator } from "../../../../utils/UuidV4Generator"
+import { UuidV4Generator } from "../../../../utils/uuidV4Generator"
 
 export const createUser = async (
   req: Request,

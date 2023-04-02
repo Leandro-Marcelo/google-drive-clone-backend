@@ -5,13 +5,13 @@ import {
   CreateUserParams,
   UserCreateInputDB,
 } from "../../../domain/utils/interfaces"
-import { UuidGenerator } from "../../../domain/utils/UuidGenerator"
+import { IUuidGenerator } from "../../../domain/utils/dependencyInterfaces/uuidGenerator"
 
 export class CreateUserUseCase {
   private readonly _userRepository: UserRepository
-  private readonly _uuidGenerator: UuidGenerator
+  private readonly _uuidGenerator: IUuidGenerator
 
-  constructor(userRepository: UserRepository, uuidGenerator: UuidGenerator) {
+  constructor(userRepository: UserRepository, uuidGenerator: IUuidGenerator) {
     this._userRepository = userRepository
     this._uuidGenerator = uuidGenerator
   }

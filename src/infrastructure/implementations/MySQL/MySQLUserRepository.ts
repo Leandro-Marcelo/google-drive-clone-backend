@@ -3,7 +3,7 @@ import {
   FindUserValues,
   UserCreateInput,
   UserCreateInputDB,
-} from "./../../../domain/utils/interfaces"
+} from "../../../domain/utils/interfaces"
 import { User } from "../../../domain/entities/user"
 import { UserRepository } from "../../../domain/repositories/userRepository"
 import { PrismaDBClient } from "../../driven-adapters/prisma"
@@ -11,7 +11,7 @@ import { PrismaDBClient } from "../../driven-adapters/prisma"
 export class MySQLUserRepository implements UserRepository {
   private readonly _prismaClient = PrismaDBClient.getInstance()
 
-  async getAllUser(): Promise<Omit<User, "password">[]> {
+  async getAllUsers(): Promise<Omit<User, "password">[]> {
     const users: Omit<User, "password">[] =
       await this._prismaClient.user.findMany({
         select: {

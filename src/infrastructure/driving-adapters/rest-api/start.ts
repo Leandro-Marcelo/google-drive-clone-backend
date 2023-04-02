@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv"
-import { App } from "./app"
+import { App } from "./App"
 
 try {
   dotenv.config({

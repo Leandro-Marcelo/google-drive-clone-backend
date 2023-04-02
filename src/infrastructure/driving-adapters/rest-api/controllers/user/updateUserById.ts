@@ -2,10 +2,10 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { UpdateUserByIdUseCase } from "../../../../../application/usecases/user/updateUserById"
+import { UpdateUserByIdUseCase } from "../../../../../application/usecases/user/UpdateUserById"
 
 // * REPOSITORIES
-import { MySQLUserRepository } from "../../../../implementations/MySQL/MySQLUserRepository"
+import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
 // * DTO
 import { updateUserByIdDto } from "../../dtos/user/updateUserByIdDto"

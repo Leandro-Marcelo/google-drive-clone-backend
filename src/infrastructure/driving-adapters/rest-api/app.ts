@@ -1,5 +1,5 @@
 import { REST_API_PORT } from "../../../domain/configs"
-import { Server } from "./server"
+import { Server } from "./Server"
 
 export class App {
   server?: Server
