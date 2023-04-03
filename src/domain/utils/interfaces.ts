@@ -2,6 +2,10 @@ import { User } from "../entities/user"
 import { File } from "../entities/file"
 import { Response } from "express"
 
+export type CurrentUser = Omit<User, "password">
+
+export type PublicUser = Omit<User, "password">
+
 // # USER: USE CASES AND SERVICES
 export interface UserCreateInput {
   name: string
@@ -138,10 +142,6 @@ export interface StreamFileByIdParams {
 
 export interface DeleteFileByIdParams {
   id: string
-}
-
-export interface GetRootFilesParams {
-  currentUser: Omit<User, "password">
 }
 
 // # FOLDER USE CASES AND SERVICES

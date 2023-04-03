@@ -6,6 +6,7 @@ import { IJWTDependency } from "../../../domain/utils/dependencyInterfaces/jwtDe
 import { IUuidGenerator } from "../../../domain/utils/dependencyInterfaces/uuidGenerator"
 import {
   AuthenticatedUser,
+  CurrentUser,
   ProviderUserData,
   UserCreateInputDB,
 } from "../../../domain/utils/interfaces"
@@ -60,7 +61,7 @@ export class LoginSignUpGoogleUseCase {
       }
     } else {
       const { password, ...user } = foundUser
-      const currentUser: Omit<User, "password"> = user
+      const currentUser: CurrentUser = user
       const authJwt = this._jwtDependency.sign(currentUser, JWT_SECRET, "1d")
 
       return {

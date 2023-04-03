@@ -9,6 +9,10 @@ import { User } from "../../../../../src/domain/entities/user"
 
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../../src/infrastructure/implementations/mysql/MySQLUserRepository"
+import {
+  CurrentUser,
+  PublicUser,
+} from "../../../../../src/domain/utils/interfaces"
 
 const mySQLUserRepository = new MySQLUserRepository()
 
@@ -22,7 +26,7 @@ describe("Users", () => {
     })
   })
 
-  let createdUser: Omit<User, "password"> = {
+  let createdUser: PublicUser = {
     id: "",
     active: true,
     name: "",

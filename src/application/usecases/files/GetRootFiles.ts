@@ -1,6 +1,5 @@
 import { File } from "../../../domain/entities/file"
 import { FileDBRepository } from "../../../domain/repositories/fileDBRepository"
-import { GetRootFilesParams } from "../../../domain/utils/interfaces"
 
 export class GetRootFilesUseCase {
   private readonly _fileDBRepository: FileDBRepository
@@ -9,10 +8,8 @@ export class GetRootFilesUseCase {
     this._fileDBRepository = fileDBRepository
   }
 
-  async run(params: GetRootFilesParams): Promise<File[]> {
-    const rootFiles = await this._fileDBRepository.getRootFiles(
-      params.currentUser.id
-    )
+  async run(currentUserId: string): Promise<File[]> {
+    const rootFiles = await this._fileDBRepository.getRootFiles(currentUserId)
     return rootFiles
   }
 }

@@ -2,14 +2,11 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { DeleteFileByIdUseCase } from "../../../../../application/usecases/files/DeleteFileById"
+import { GetRootFilesUseCase } from "../../../../../application/usecases/files/GetRootFiles"
 
 // * REPOSITORIES
-import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
 import { MySQLFileDBRepository } from "../../../../implementations/mysql/MySQLFileDBRepository"
-
-// * DTO
-import { deleteFileByIdDto } from "../../dtos/files/deleteFileByIdDto"
+import { CurrentUser } from "../../../../../domain/utils/interfaces"
 
 export const getRootFiles = async (
   req: Request,
@@ -17,15 +14,11 @@ export const getRootFiles = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const deleteFileByIdParams = deleteFileByIdDto(req)
-    const gcpFileCloudRepository = new GCPFileCloudRepository()
+    const currentUser: CurrentUser = req.currentUser
     const mySQLFileDBRepository = new MySQLFileDBRepository()
-    const deleteFileByIdUseCase = new DeleteFileByIdUseCase(
-      gcpFileCloudRepository,
-      mySQLFileDBRepository
-    )
-    const deletedFIle = await deleteFileByIdUseCase.run(deleteFileByIdParams)
-    res.status(200).json(deletedFIle)
+    const getRootFilesUseCase = new GetRootFilesUseCase(mySQLFileDBRepository)
+    const rootFiles = await getRootFilesUseCase.run(currentUser.id)
+    res.status(200).json(rootFiles)
   } catch (err) {
     return next(err)
   }

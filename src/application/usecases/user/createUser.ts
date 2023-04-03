@@ -1,8 +1,8 @@
-import { User } from "../../../domain/entities/user"
 import { UserRepository } from "../../../domain/repositories/userRepository"
 import { AlreadyExistsException } from "../../../domain/exceptions/AlreadyExistsException"
 import {
   CreateUserParams,
+  PublicUser,
   UserCreateInputDB,
 } from "../../../domain/utils/interfaces"
 import { IUuidGenerator } from "../../../domain/utils/dependencyInterfaces/uuidGenerator"
@@ -17,7 +17,7 @@ export class CreateUserUseCase {
   }
 
   // Anteriormente uno desde el controlador le enviaba un usuario, ahora vamos a pasarle los datos de manera primitiva y el caso de uso se encarga de crear el usuario.
-  async run(params: CreateUserParams): Promise<Omit<User, "password">> {
+  async run(params: CreateUserParams): Promise<PublicUser> {
     const foundUser = await this._userRepository.getUser(
       "email",
       params.data.email
