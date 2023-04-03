@@ -7,10 +7,13 @@ import { loginSignUpGoogle } from "../controllers/auth/loginSignUpGoogle"
 import { validateAuthJwt } from "../controllers/auth/validateAuthJwt"
 import { isAuth } from "../middlewares/isAuth"
 import { logout } from "../controllers/auth/logout"
+import { postman } from "../controllers/auth/postman"
 
 const router = express.Router()
 
 // * ROUTES
+
+router.get("/postman", postman)
 
 router.get("/validate", [isAuth], validateAuthJwt)
 router.get("/logout", logout)

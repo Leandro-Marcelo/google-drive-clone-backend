@@ -25,10 +25,10 @@ model User {
 }
 
 model File {
-  id           Int      @id @default(autoincrement())
+  id           String   @id
   createdAt    DateTime @default(now())
   fileName     String   @unique(map: "File_fileName_key")
-  folderId     Int?
+  folderId     String?
   originalName String
   userId       String
   updatedAt    DateTime @updatedAt
@@ -41,12 +41,12 @@ model File {
 }
 
 model Folder {
-  id             Int      @id @default(autoincrement())
+  id             String   @id
   createdAt      DateTime @default(now())
   originalName   String
   userId         String
   updatedAt      DateTime @updatedAt
-  parentFolderId Int?
+  parentFolderId String?
   parentFolder   Folder?  @relation("folderTofolder", fields: [parentFolderId], references: [id], map: "Folder_parentFolderId_fkey")
   childFolders   Folder[] @relation("folderTofolder")
   user           User     @relation(fields: [userId], references: [id], map: "Folder_userId_fkey")

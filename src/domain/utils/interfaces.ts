@@ -1,4 +1,6 @@
 import { User } from "../entities/user"
+import { File } from "../entities/file"
+import { Response } from "express"
 
 // # USER: USE CASES AND SERVICES
 export interface UserCreateInput {
@@ -92,4 +94,48 @@ export interface ProviderUserData {
 export interface AuthenticatedUser {
   currentUser: Omit<User, "password">
   authJwt: string
+}
+
+// # FILES: USE CASES AND SERVICES
+export type CreateFileDBInput = Omit<File, "createdAt" | "updatedAt">
+
+export interface FileUploadInput {
+  // Name of the file on the uploader's computer.
+  originalname: string
+  // Value of the `Content-Type` header for this file
+  mimetype: string
+  // Size of the file in bytes.
+  size: number
+  // A Buffer containing the entire file.
+  buffer: Buffer
+}
+
+export type UploadedFile =
+  | {
+      status: "fulfilled"
+      value: File
+    }
+  | {
+      status: "rejected"
+      reason: {
+        id: string
+        originalName: string
+        message: string
+      }
+    }
+
+export interface UploadManyFilesParams {
+  currentUser: Omit<User, "password">
+  folderId: string | null
+  files: FileUploadInput[]
+}
+
+// # FILE USE CASES AND SERVICES
+export interface StreamFileByIdParams {
+  fileId: string
+  res: Response
+}
+
+export interface DeleteFileByIdParams {
+  id: string
 }

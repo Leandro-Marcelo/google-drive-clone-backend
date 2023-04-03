@@ -12,5 +12,3 @@ export interface User {
   createdAt: Date
   updatedAt: Date
 }
-
-export type UserOmitedSecurity = Omit<User, "password">

@@ -18,6 +18,7 @@ if (
   // ######################### GOOGLE CLOUD PLATFORM #########################
   // ############### CLOUD STORAGE ###############
   process.env.GCP_CLOUD_STORAGE_BUCKET_NAME === undefined ||
+  process.env.GCP_CLOUD_STORAGE_JSON_CREDENTIALS_NAME === undefined ||
   // ############### AUTH PROVIDER ###############
   process.env.GCP_AUTH_PROVIDER_OAUTH_CLIENT_ID === undefined ||
   process.env.GCP_AUTH_PROVIDER_OAUTH_CLIENT_SECRET === undefined ||
@@ -47,6 +48,9 @@ export const DATABASE_URL = process.env.DATABASE_URL
 // ############### CLOUD STORAGE ###############
 export const GCP_CLOUD_STORAGE_BUCKET_NAME =
   process.env.GCP_CLOUD_STORAGE_BUCKET_NAME
+
+export const GCP_CLOUD_STORAGE_JSON_CREDENTIALS_NAME =
+  process.env.GCP_CLOUD_STORAGE_JSON_CREDENTIALS_NAME
 
 // ############### AUTH PROVIDER ###############
 export const GCP_AUTH_PROVIDER_OAUTH_CLIENT_ID =
