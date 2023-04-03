@@ -143,3 +143,16 @@ export interface DeleteFileByIdParams {
 export interface GetRootFilesParams {
   currentUser: Omit<User, "password">
 }
+
+// # FOLDER USE CASES AND SERVICES
+export interface CreateFolderInput {
+  id: string
+  originalName: string
+  userId: string
+  parentFolderId: string | null
+}
+
+export interface UpdateFolderInput {
+  originalName: string
+  parentFolderId: string | null
+}

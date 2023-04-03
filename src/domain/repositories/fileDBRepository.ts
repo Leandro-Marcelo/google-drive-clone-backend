@@ -5,7 +5,6 @@ import { CreateFileDBInput } from "../utils/interfaces"
 export interface FileDBRepository {
   createFile: (file: CreateFileDBInput) => Promise<File>
   deleteFileById: (fileId: string) => Promise<File>
-
   getRootFiles: (currentUserId: string) => Promise<File[]>
 
   updateFileById: (fileId: string, productImage: File) => Promise<File>
