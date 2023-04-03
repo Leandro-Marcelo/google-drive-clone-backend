@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { DeleteUserByIdUseCase } from "../../../../../application/usecases/user/DeleteUserById"
+import { DeleteUserByIdUseCase } from "../../../../../application/usecases/users/DeleteUserById"
 
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"

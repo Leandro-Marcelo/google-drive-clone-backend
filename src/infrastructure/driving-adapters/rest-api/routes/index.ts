@@ -1,15 +1,17 @@
 import { Request, Response, Router, NextFunction } from "express"
-import userRoutes from "./users"
+import usersRoutes from "./users"
 import authRoutes from "./auth"
-import fileRoutes from "./files"
+import filesRoutes from "./files"
+import foldersRoutes from "./folders"
 
 import { Exception } from "../../../../domain/exceptions/Exception"
 
 const router = Router()
 
-router.use("/api/users", userRoutes)
+router.use("/api/users", usersRoutes)
 router.use("/api/auth", authRoutes)
-router.use("/api/files", fileRoutes)
+router.use("/api/files", filesRoutes)
+router.use("/api/folders", foldersRoutes)
 
 // Are middlewares to handle Node.JS errors
 router.use(

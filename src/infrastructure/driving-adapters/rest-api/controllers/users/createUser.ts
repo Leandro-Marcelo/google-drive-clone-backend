@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { CreateUserUseCase } from "../../../../../application/usecases/user/CreateUser"
+import { CreateUserUseCase } from "../../../../../application/usecases/users/CreateUser"
 
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
