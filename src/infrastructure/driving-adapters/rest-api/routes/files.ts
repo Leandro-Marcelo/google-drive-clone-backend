@@ -2,10 +2,10 @@
 import express from "express"
 
 // * CONTROLLERS
-import { getAllUsers } from "../controllers/user/getAllUsers"
-import { getUser } from "../controllers/user/getUser"
-import { createUser } from "../controllers/user/createUser"
-import { updateUserById } from "../controllers/user/updateUserById"
+import { getAllUsers } from "../controllers/users/getAllUsers"
+import { getUser } from "../controllers/users/getUser"
+import { createUser } from "../controllers/users/createUser"
+import { updateUserById } from "../controllers/users/updateUserById"
 import { uploadManyFiles } from "../controllers/files/uploadManyFiles"
 import { isAuth } from "../middlewares/isAuth"
 import multerUpload from "../middlewares/multerUpload"
@@ -15,7 +15,7 @@ import { streamFileById } from "../controllers/files/streamFileById"
 const router = express.Router()
 
 // * ROUTES
-router.get("/", getAllUsers)
+router.get("/root", getAllUsers)
 
 // router.get("/:fileName", getUser)
 router.get("/:fileId", streamFileById)

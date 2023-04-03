@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from "express"
-import userRoutes from "./user"
+import userRoutes from "./users"
 import authRoutes from "./auth"
 import fileRoutes from "./files"
 

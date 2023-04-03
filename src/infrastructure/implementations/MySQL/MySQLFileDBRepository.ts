@@ -6,8 +6,12 @@ import { PrismaDBClient } from "../../driven-adapters/prisma"
 export class MySQLFileDBRepository implements FileDBRepository {
   private readonly _prismaClient = PrismaDBClient.getInstance()
 
-  async getAllFiles(): Promise<File[]> {
-    const files = await this._prismaClient.file.findMany()
+  async getRootFiles(currentUserId: string): Promise<File[]> {
+    const files = await this._prismaClient.file.findMany({
+      where: {
+        userId: currentUserId,
+      },
+    })
     return files
   }
 

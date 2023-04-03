@@ -139,3 +139,7 @@ export interface StreamFileByIdParams {
 export interface DeleteFileByIdParams {
   id: string
 }
+
+export interface GetRootFilesParams {
+  currentUser: Omit<User, "password">
+}
