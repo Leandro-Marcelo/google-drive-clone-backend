@@ -5,6 +5,8 @@ import express, { Request, Response } from "express"
 import { isAuth } from "../middlewares/isAuth"
 import { getRootFolders } from "../controllers/folders/getRootFolders"
 import { createFolder } from "../controllers/folders/createFolder"
+import { deleteFolderById } from "../controllers/folders/deleteFolderById"
+import { updateFolderById } from "../controllers/folders/updateFolderById"
 
 const router = express.Router()
 
@@ -12,7 +14,7 @@ const router = express.Router()
 router.get("/root", [isAuth], getRootFolders)
 
 router.post("/create", [isAuth], createFolder)
-router.put("/:folderId", [isAuth], getRootFolders)
-router.delete("/:folderId", [isAuth], getRootFolders)
+router.put("/:folderId", [isAuth], updateFolderById)
+router.delete("/:folderId", [isAuth], deleteFolderById)
 
 export default router

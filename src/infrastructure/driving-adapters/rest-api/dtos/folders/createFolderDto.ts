@@ -6,21 +6,19 @@ import {
 } from "../../../../../domain/utils/interfaces"
 
 export const createFolderDto = (req: Request): CreateFolderParams => {
-  const createFolderInputSchema = z.object({
+  const createFolderSchema = z.object({
     originalName: z.string().min(3),
     parentFolderId: z.string().nullable(),
   })
 
-  const validCreateFolderInputSchema = createFolderInputSchema.safeParse(
-    req.body
-  )
-  if (!validCreateFolderInputSchema.success) {
-    throw validCreateFolderInputSchema.error
+  const validCreateFolderSchema = createFolderSchema.safeParse(req.body)
+  if (!validCreateFolderSchema.success) {
+    throw validCreateFolderSchema.error
   }
 
   return {
     data: {
-      ...validCreateFolderInputSchema.data,
+      ...validCreateFolderSchema.data,
       userId: req.currentUser.id,
     },
     currentUser: req.currentUser,
