@@ -1,3 +1,4 @@
+import { File } from "../../../domain/entities/file"
 import { Folder } from "../../../domain/entities/folder"
 import { FolderDBRepository } from "../../../domain/repositories/folderDBRepository"
 import {
@@ -47,10 +48,20 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
     })
   }
 
-  async getFolderById(folderId: string): Promise<Folder | null> {
+  async getFolderContents(folderId: string): Promise<
+    | (Folder & {
+        childFolders: Folder[]
+        files: File[]
+      })
+    | null
+  > {
     const foundFile = await this._prismaClient.folder.findUnique({
       where: {
         id: folderId,
+      },
+      include: {
+        files: true,
+        childFolders: true,
       },
     })
     return foundFile

@@ -7,11 +7,13 @@ import { getRootFolders } from "../controllers/folders/getRootFolders"
 import { createFolder } from "../controllers/folders/createFolder"
 import { deleteFolderById } from "../controllers/folders/deleteFolderById"
 import { updateFolderById } from "../controllers/folders/updateFolderById"
+import { getFolderContents } from "../controllers/folders/getFolderContents"
 
 const router = express.Router()
 
 // * ROUTES
 router.get("/root", [isAuth], getRootFolders)
+router.get("/:folderId", [isAuth], getFolderContents)
 
 router.post("/create", [isAuth], createFolder)
 router.put("/:folderId", [isAuth], updateFolderById)

@@ -1,3 +1,4 @@
+import { File } from "../entities/file"
 import { Folder } from "../entities/folder"
 import { CreateFolderInputDB, UpdateFolderInput } from "../utils/interfaces"
 
@@ -9,5 +10,11 @@ export interface FolderDBRepository {
     folderId: string,
     createFolderInputDB: UpdateFolderInput
   ) => Promise<Folder>
-  getFolderById: (folderId: string) => Promise<Folder | null>
+  getFolderContents: (folderId: string) => Promise<
+    | (Folder & {
+        childFolders: Folder[]
+        files: File[]
+      })
+    | null
+  >
 }

@@ -173,3 +173,7 @@ export interface UpdateFolderByIdParams {
 export interface DeleteFolderByIdParams {
   folderId: string
 }
+
+export interface GetFolderContentsParams {
+  folderId: string
+}
