@@ -1,4 +1,5 @@
 import { Storage } from "@google-cloud/storage"
+import { GCP_CLOUD_STORAGE_JSON_CREDENTIALS_NAME } from "../../../../domain/configs"
 
 // Singleton
 export class CloudStorage {
@@ -9,7 +10,7 @@ export class CloudStorage {
     if (this._INSTANCE === undefined) {
       this._INSTANCE = new Storage({
         // takes it from the root of the project
-        keyFilename: "credentials-gcloud.json",
+        keyFilename: GCP_CLOUD_STORAGE_JSON_CREDENTIALS_NAME,
       })
     }
 

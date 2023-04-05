@@ -8,7 +8,7 @@ import { GetUserByUniqueProperty } from "../../../../../application/usecases/use
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
 // * DTO
-import { getUserByUniquePropertyDto } from "../../dtos/user/getUserByUniquePropertyDto"
+import { getUserByUniquePropertyDto } from "../../dtos/users/getUserByUniquePropertyDto"
 
 export const getUser = async (
   req: Request,

@@ -1,7 +1,7 @@
 import { Folder } from "../../../domain/entities/folder"
 import { FolderDBRepository } from "../../../domain/repositories/folderDBRepository"
 import {
-  CreateFolderInput,
+  CreateFolderInputDB,
   UpdateFolderInput,
 } from "../../../domain/utils/interfaces"
 import { PrismaDBClient } from "../../driven-adapters/prisma"
@@ -12,15 +12,18 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
   async getRootFolders(currentUserId: string): Promise<Folder[]> {
     const folders = await this._prismaClient.folder.findMany({
       where: {
+        parentFolderId: null,
         userId: currentUserId,
       },
     })
     return folders
   }
 
-  async createFolder(createFolderInput: CreateFolderInput): Promise<Folder> {
+  async createFolder(
+    createFolderInputDB: CreateFolderInputDB
+  ): Promise<Folder> {
     return await this._prismaClient.folder.create({
-      data: createFolderInput,
+      data: createFolderInputDB,
     })
   }
 

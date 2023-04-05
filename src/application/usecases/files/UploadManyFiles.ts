@@ -27,6 +27,7 @@ export class UploadManyFilesUseCase {
     const promises = params.files.map(async (file) => {
       const ext = path.extname(file.originalname)
       const newFileId = `${this._uuidGenerator.generate()}${ext}`
+      console.log(params.folderId)
       try {
         const newFile: CreateFileDBInput = {
           id: newFileId,
@@ -34,7 +35,7 @@ export class UploadManyFilesUseCase {
           originalName: file.originalname,
           userId: params.currentUser.id,
           imgSrc: `${REST_API_URL}/api/files/${newFileId}`,
-          folderId: params.folderId === "null" ? null : params.folderId,
+          folderId: params.folderId === "null" || null ? null : params.folderId,
         }
 
         const createdFile = await this._fileDBRepository.createFile(newFile)

@@ -8,7 +8,7 @@ import { UpdateUserByIdUseCase } from "../../../../../application/usecases/users
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
 // * DTO
-import { updateUserByIdDto } from "../../dtos/user/updateUserByIdDto"
+import { updateUserByIdDto } from "../../dtos/users/updateUserByIdDto"
 
 export const updateUserById = async (
   req: Request,

@@ -9,6 +9,7 @@ export class MySQLFileDBRepository implements FileDBRepository {
   async getRootFiles(currentUserId: string): Promise<File[]> {
     const files = await this._prismaClient.file.findMany({
       where: {
+        folderId: null,
         userId: currentUserId,
       },
     })

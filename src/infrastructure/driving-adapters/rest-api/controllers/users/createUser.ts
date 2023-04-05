@@ -6,7 +6,7 @@ import { CreateUserUseCase } from "../../../../../application/usecases/users/Cre
 
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
-import { createUserDto } from "../../dtos/user/createUserDto"
+import { createUserDto } from "../../dtos/users/createUserDto"
 import { UuidV4Generator } from "../../../../utils/uuidV4Generator"
 
 export const createUser = async (

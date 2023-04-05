@@ -7,7 +7,7 @@ import { DeleteUserByIdUseCase } from "../../../../../application/usecases/users
 // * REPOSITORIES
 import { MySQLUserRepository } from "../../../../implementations/mysql/MySQLUserRepository"
 
-import { deleteUserByIdDto } from "../../dtos/user/deleteUserByIdDto"
+import { deleteUserByIdDto } from "../../dtos/users/deleteUserByIdDto"
 
 export const deleteUserById = async (
   req: Request,

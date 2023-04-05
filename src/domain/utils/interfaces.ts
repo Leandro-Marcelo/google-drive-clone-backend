@@ -146,13 +146,30 @@ export interface DeleteFileByIdParams {
 
 // # FOLDER USE CASES AND SERVICES
 export interface CreateFolderInput {
-  id: string
   originalName: string
   userId: string
   parentFolderId: string | null
 }
 
+export interface CreateFolderInputDB extends CreateFolderInput {
+  id: string
+}
+
 export interface UpdateFolderInput {
   originalName: string
   parentFolderId: string | null
+}
+
+export interface CreateFolderParams {
+  data: CreateFolderInput
+  currentUser: CurrentUser
+}
+
+export interface UpdateFolderByIdParams {
+  folderId: string
+  data: UpdateFolderInput
+}
+
+export interface DeleteFolderByIdParams {
+  folderId: string
 }
