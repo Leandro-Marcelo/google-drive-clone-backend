@@ -14,9 +14,11 @@ import { getRootFiles } from "../controllers/files/getRootFiles"
 const router = express.Router()
 
 // * ROUTES
+
+// TODO: delete many files, update file like rename, move, copy, etc
+
 router.get("/root", [isAuth], getRootFiles)
 
-// router.get("/:fileName", getUser)
 router.get("/:fileId", streamFileById)
 router.delete("/:fileId", deleteFileById)
 

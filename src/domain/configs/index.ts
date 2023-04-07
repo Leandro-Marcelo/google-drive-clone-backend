@@ -8,6 +8,7 @@ if (
   // ######################### APP #########################
   process.env.REST_API_PORT === undefined ||
   process.env.REST_API_URL === undefined ||
+  process.env.FRONTEN_URL === undefined ||
   process.env.JWT_SECRET === undefined ||
   process.env.AUTH_PROVIDER_CALLBACK_URL === undefined ||
   process.env.SESSION_COOKIE_NAME === undefined ||
@@ -33,6 +34,7 @@ if (
 // ######################### APP #########################
 export const REST_API_PORT = process.env.REST_API_PORT
 export const REST_API_URL = process.env.REST_API_URL
+export const FRONTEN_URL = process.env.FRONTEN_URL
 export const JWT_SECRET = process.env.JWT_SECRET
 // not working
 export const SESSION_COOKIE_NAME = process.env.SESSION_COOKIE_NAME

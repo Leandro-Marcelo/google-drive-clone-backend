@@ -7,15 +7,14 @@ export const logout = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    res.clearCookie(SESSION_COOKIE_NAME, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 0,
-    })
-    res.status(200).json({
-      data: "ok",
-    })
+    res
+      .clearCookie(SESSION_COOKIE_NAME, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 0,
+      })
+      .sendStatus(204)
   } catch (err) {
     return next(err)
   }

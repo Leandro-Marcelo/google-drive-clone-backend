@@ -4,6 +4,7 @@ import { GoogleUserData } from "../../../../../domain/utils/interfaces"
 import {
   SESSION_COOKIE_NAME,
   MAX_AGE_SESSION_COOKIE,
+  FRONTEN_URL,
 } from "../../../../../domain/configs"
 
 // * USE CASES
@@ -45,7 +46,8 @@ export const loginSignUpGoogle = async (
       sameSite: "none",
       maxAge: MAX_AGE_SESSION_COOKIE,
     })
-    res.status(200).json(authenticatedUser.currentUser)
+    res.redirect(FRONTEN_URL)
+    // res.status(200).json(authenticatedUser.currentUser)
   } catch (err) {
     return next(err)
   }
