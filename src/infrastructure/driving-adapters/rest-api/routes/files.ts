@@ -20,7 +20,7 @@ const router = express.Router()
 router.get("/root", [isAuth], getRootFiles)
 
 router.post(
-  "/uploadMany/folder/:folderId",
+  "/uploadMany",
   [isAuth, multerUpload.array("files")],
   uploadManyFiles
 )

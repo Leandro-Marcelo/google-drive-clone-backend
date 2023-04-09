@@ -6,8 +6,10 @@ import {
 } from "../../../../../domain/utils/interfaces"
 
 export const uploadManyFilesDto = (req: Request): UploadManyFilesParams => {
-  const folderIdSchema = z.string().uuid()
-  const validFolderIdSchema = folderIdSchema.safeParse(req.params.folderId)
+  const folderIdSchema = z.object({
+    folderId: z.string().uuid().optional(),
+  })
+  const validFolderIdSchema = folderIdSchema.safeParse(req.body)
   if (!validFolderIdSchema.success) {
     throw validFolderIdSchema.error
   }
@@ -30,7 +32,9 @@ export const uploadManyFilesDto = (req: Request): UploadManyFilesParams => {
 
   return {
     currentUser: req.currentUser,
-    folderId: validFolderIdSchema.data,
+    folderId: validFolderIdSchema.data.folderId
+      ? validFolderIdSchema.data.folderId
+      : null,
     files,
   }
 }
