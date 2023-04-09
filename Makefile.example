@@ -16,6 +16,9 @@ prisma-update-schemas:
 	sleep 3
 	npx prisma generate --schema=./src/infrastructure/driven-adapters/prisma/schema.prisma
 
+prisma-studio:
+	npx prisma studio --schema=./src/infrastructure/driven-adapters/prisma/schema.prisma
+
 # DOCKER
 
 # Makefile for starting a MySQL server in development
