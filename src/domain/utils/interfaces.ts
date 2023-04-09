@@ -101,6 +101,8 @@ export interface AuthenticatedUser {
 }
 
 // # FILES: USE CASES AND SERVICES
+export type UpdateFileDBInput = Pick<File, "originalName" | "folderId">
+
 export type CreateFileDBInput = Omit<File, "createdAt" | "updatedAt">
 
 export interface FileUploadInput {
@@ -134,10 +136,14 @@ export interface UploadManyFilesParams {
   files: FileUploadInput[]
 }
 
-// # FILE USE CASES AND SERVICES
 export interface StreamFileByFileNameParams {
   fileName: string
   res: Response
+}
+
+export interface UpdateFileByIdParams {
+  fileId: string
+  data: UpdateFileDBInput
 }
 
 export interface DeleteFileParams {

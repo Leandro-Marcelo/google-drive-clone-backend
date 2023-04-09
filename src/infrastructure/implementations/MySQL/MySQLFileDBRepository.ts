@@ -1,3 +1,4 @@
+import { UpdateFileById_FileDBRepository } from "./../../../domain/repositories/fileDBRepository"
 import { File } from "../../../domain/entities/file"
 import {
   ExistFileByFileName_FileDBRepository,
@@ -54,12 +55,15 @@ export class MySQLFileDBRepository implements FileDBRepository {
     })
   }
 
-  async updateFileById(fileId: string, productImage: File): Promise<File> {
+  async updateFileById({
+    fileId,
+    data,
+  }: UpdateFileById_FileDBRepository): Promise<File> {
     return await this._prismaClient.file.update({
       where: {
         id: fileId,
       },
-      data: productImage,
+      data,
     })
   }
 
