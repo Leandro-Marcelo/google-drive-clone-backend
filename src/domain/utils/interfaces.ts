@@ -135,8 +135,8 @@ export interface UploadManyFilesParams {
 }
 
 // # FILE USE CASES AND SERVICES
-export interface StreamFileByIdParams {
-  fileId: string
+export interface StreamFileByFileNameParams {
+  fileName: string
   res: Response
 }
 

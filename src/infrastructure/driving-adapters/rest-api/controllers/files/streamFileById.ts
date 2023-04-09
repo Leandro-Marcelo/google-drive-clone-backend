@@ -9,7 +9,7 @@ import { StreamFileByIdUseCase } from "../../../../../application/usecases/files
 import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
 
 // * DTO
-import { streamFileByIdDto } from "../../dtos/files/streamFileByIdDto"
+import { streamFileByFileNameDto } from "../../dtos/files/streamFileByFileNameDto"
 
 export const streamFileById = async (
   req: Request,
@@ -17,14 +17,14 @@ export const streamFileById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const streamFileByIdParams = streamFileByIdDto(req, res)
+    const streamFileByFileNameParams = streamFileByFileNameDto(req, res)
     const gcpFileCloudRepository = new GCPFileCloudRepository()
     const mySQLFileDBRepository = new MySQLFileDBRepository()
     const streamFileByIdUseCase = new StreamFileByIdUseCase(
       gcpFileCloudRepository,
       mySQLFileDBRepository
     )
-    await streamFileByIdUseCase.run(streamFileByIdParams)
+    await streamFileByIdUseCase.run(streamFileByFileNameParams)
     return
   } catch (err) {
     return next(err)

@@ -26,7 +26,7 @@ router.post(
 )
 
 router.post("/", createUser)
-router.get("/:fileId", streamFileById)
+router.get("/:fileName", streamFileById)
 router.delete("/:fileId", deleteFileById)
 
 router.put("/:fileId", updateUserById)

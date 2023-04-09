@@ -1,5 +1,6 @@
 import { File } from "../../../domain/entities/file"
 import {
+  ExistFileByFileName_FileDBRepository,
   ExistFileById_FileDBRepository,
   FileDBRepository,
 } from "../../../domain/repositories/fileDBRepository"
@@ -15,6 +16,20 @@ export class MySQLFileDBRepository implements FileDBRepository {
     const foundFile = await this._prismaClient.file.findUnique({
       where: {
         id: fileId,
+      },
+      select: {
+        id: true,
+      },
+    })
+    return foundFile !== null
+  }
+
+  async existFileByFileName({
+    fileName,
+  }: ExistFileByFileName_FileDBRepository): Promise<boolean> {
+    const foundFile = await this._prismaClient.file.findUnique({
+      where: {
+        fileName,
       },
       select: {
         id: true,

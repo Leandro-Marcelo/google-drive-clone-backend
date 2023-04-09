@@ -1,6 +1,6 @@
 import { FileCloudRepository } from "../../../domain/repositories/fileCloudRepository"
 import { FileDBRepository } from "../../../domain/repositories/fileDBRepository"
-import { StreamFileByIdParams } from "../../../domain/utils/interfaces"
+import { StreamFileByFileNameParams } from "../../../domain/utils/interfaces"
 
 export class StreamFileByIdUseCase {
   private readonly _fileCloudRepository: FileCloudRepository
@@ -14,20 +14,17 @@ export class StreamFileByIdUseCase {
     this._fileDBRepository = fileDBRepository
   }
 
-  async run(params: StreamFileByIdParams): Promise<void> {
-    const foundFile = await this._fileDBRepository.getFileById({
-      fileId: params.fileId,
+  async run(params: StreamFileByFileNameParams): Promise<void> {
+    const existFile = await this._fileDBRepository.existFileByFileName({
+      fileName: params.fileName,
     })
 
-    if (!foundFile) {
+    if (!existFile) {
       params.res.status(404).end()
       return
     }
 
-    await this._fileCloudRepository.streamingFile(
-      foundFile.fileName,
-      params.res
-    )
+    await this._fileCloudRepository.streamingFile(params.fileName, params.res)
     params.res.status(200).end()
   }
 }
