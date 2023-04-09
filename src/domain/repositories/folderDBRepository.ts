@@ -3,6 +3,7 @@ import { Folder } from "../entities/folder"
 import { CreateFolderInputDB, UpdateFolderInput } from "../utils/interfaces"
 
 export interface FolderDBRepository {
+  existFolderById: (folderId: string) => Promise<boolean>
   createFolder: (createFolderInputDB: CreateFolderInputDB) => Promise<Folder>
   deleteFolderById: (folderId: string) => Promise<Folder>
   getRootFolders: (currentUserId: string) => Promise<Folder[]>

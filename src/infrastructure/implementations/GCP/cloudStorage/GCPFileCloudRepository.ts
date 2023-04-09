@@ -4,6 +4,7 @@ import { GCP_CLOUD_STORAGE_BUCKET_NAME } from "../../../../domain/configs"
 import { Response } from "express"
 import { NotFoundException } from "../../../../domain/exceptions/NotFoundException"
 import { Readable } from "stream"
+import { UploadFileToCloudException } from "../../../../domain/exceptions/UploadFileToCloudException"
 
 export class GCPFileCloudRepository implements FileCloudRepository {
   private readonly _storage = CloudStorage.getInstance()
@@ -63,7 +64,8 @@ export class GCPFileCloudRepository implements FileCloudRepository {
         // TODO: No hemos probado este caso de error
         .on("error", (err) => {
           console.log(err)
-          reject(new Error("Error uploading file to cloud storage"))
+          //reject(new Error("Error uploading file to cloud storage"))
+          reject(new UploadFileToCloudException())
         })
     })
   }

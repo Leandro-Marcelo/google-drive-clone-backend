@@ -13,6 +13,7 @@ import {
   FileUploadInput,
 } from "../../../../../domain/utils/interfaces"
 import { uploadManyFilesDto } from "../../dtos/files/uploadManyFilesDto"
+import { MySQLFolderDBRepository } from "../../../../implementations/mysql/MySQLFolderDBRepository"
 
 // * DTO
 
@@ -26,15 +27,22 @@ export const uploadManyFiles = async (
 
     const gcpFileCloudRepository = new GCPFileCloudRepository()
     const mySQLFileDBRepository = new MySQLFileDBRepository()
+    const mySQLFolderDBRepository = new MySQLFolderDBRepository()
     const uuidV4Generator = new UuidV4Generator()
 
     const uploadManyFilesUseCase = new UploadManyFilesUseCase(
       gcpFileCloudRepository,
+      mySQLFolderDBRepository,
       mySQLFileDBRepository,
       uuidV4Generator
     )
-    const users = await uploadManyFilesUseCase.run(uploadManyFilesParams)
-    res.status(200).json(users)
+    const uploadedFiles = await uploadManyFilesUseCase.run(
+      uploadManyFilesParams
+    )
+
+    console.log(uploadedFiles)
+
+    res.status(200).json(uploadedFiles)
     return
   } catch (err) {
     return next(err)

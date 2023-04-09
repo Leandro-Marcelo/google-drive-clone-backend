@@ -1,9 +1,11 @@
 // Podríamos hacerla una abstrac class
 export class Exception extends Error {
-  constructor (
+  constructor(
     public message: string,
     public spanishMessage: string,
-    public statusCode: number
+    public statusCode: number,
+    // TODO: Hacer code un enum, requerido así como lo hace prisma P2022 P2025, etc.
+    public code?: string
   ) {
     super(message)
   }

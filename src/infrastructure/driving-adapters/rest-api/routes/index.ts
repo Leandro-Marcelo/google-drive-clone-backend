@@ -5,6 +5,7 @@ import filesRoutes from "./files"
 import foldersRoutes from "./folders"
 
 import { Exception } from "../../../../domain/exceptions/Exception"
+import { ZodError } from "zod"
 
 const router = Router()
 
@@ -16,11 +17,8 @@ router.use("/api/folders", foldersRoutes)
 // Are middlewares to handle Node.JS errors
 router.use(
   (err: Error | any, req: Request, res: Response, next: NextFunction) => {
-    // TODO: Implement a zod validator to validate the request body and params. Do not use Joi
-    if (err.joiValidation === true) {
-      return res.status(400).json({
-        message: err.message,
-      })
+    if (err instanceof ZodError) {
+      return res.status(400).json(err)
     }
 
     if (err instanceof Exception) {

@@ -19,9 +19,6 @@ const router = express.Router()
 
 router.get("/root", [isAuth], getRootFiles)
 
-router.get("/:fileId", streamFileById)
-router.delete("/:fileId", deleteFileById)
-
 router.post(
   "/uploadMany/folder/:folderId",
   [isAuth, multerUpload.array("files")],
@@ -29,6 +26,8 @@ router.post(
 )
 
 router.post("/", createUser)
+router.get("/:fileId", streamFileById)
+router.delete("/:fileId", deleteFileById)
 
 router.put("/:fileId", updateUserById)
 

@@ -6,7 +6,7 @@ import {
 } from "../../../../../domain/utils/interfaces"
 
 export const uploadManyFilesDto = (req: Request): UploadManyFilesParams => {
-  const folderIdSchema = z.string()
+  const folderIdSchema = z.string().uuid()
   const validFolderIdSchema = folderIdSchema.safeParse(req.params.folderId)
   if (!validFolderIdSchema.success) {
     throw validFolderIdSchema.error

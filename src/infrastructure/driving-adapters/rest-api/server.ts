@@ -12,6 +12,7 @@ import routes from "./routes"
 // * PASSPORT STRATEGIES
 import { useGoogleStrategy } from "./middlewares/authProvider"
 import { JWT_SECRET } from "../../../domain/configs"
+import { logger } from "./middlewares/logger"
 
 export class Server {
   private readonly _port: string
@@ -30,6 +31,7 @@ export class Server {
     this._app.use(express.json())
     // this._app.use(express.urlencoded({ extended: false }))
     this._app.use(cookieParser())
+    /* this._app.use(logger) */
     // * AUTH PROVIDERS
     this._app.use(
       session({

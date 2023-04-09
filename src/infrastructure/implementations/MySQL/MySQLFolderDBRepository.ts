@@ -10,6 +10,18 @@ import { PrismaDBClient } from "../../driven-adapters/prisma"
 export class MySQLFolderDBRepository implements FolderDBRepository {
   private readonly _prismaClient = PrismaDBClient.getInstance()
 
+  async existFolderById(folderId: string): Promise<boolean> {
+    const foundFolder = await this._prismaClient.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+      select: {
+        id: true,
+      },
+    })
+    return foundFolder !== null
+  }
+
   async getRootFolders(currentUserId: string): Promise<Folder[]> {
     const folders = await this._prismaClient.folder.findMany({
       where: {
