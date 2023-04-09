@@ -17,7 +17,7 @@ prisma-update-schemas:
 	npx prisma generate --schema=./src/infrastructure/driven-adapters/prisma/schema.prisma
 
 prisma-studio:
-	npx prisma studio --schema=./src/infrastructure/driven-adapters/prisma/schema.prisma
+	npx dotenv -e .env.dev -- npx prisma studio --schema=./src/infrastructure/driven-adapters/prisma/schema.prisma
 
 # DOCKER
 
