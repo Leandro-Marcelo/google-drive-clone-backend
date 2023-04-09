@@ -140,8 +140,9 @@ export interface StreamFileByIdParams {
   res: Response
 }
 
-export interface DeleteFileByIdParams {
-  id: string
+export interface DeleteFileParams {
+  fileId: string
+  fileName: string
 }
 
 // # FOLDER USE CASES AND SERVICES

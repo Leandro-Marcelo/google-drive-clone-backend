@@ -1,9 +1,8 @@
 import { FileCloudRepository } from "../../../domain/repositories/fileCloudRepository"
 import { FileDBRepository } from "../../../domain/repositories/fileDBRepository"
-import { DeleteFileByIdParams } from "../../../domain/utils/interfaces"
-import { File } from "../../../domain/entities/file"
+import { StreamFileByIdParams } from "../../../domain/utils/interfaces"
 
-export class DeleteFileByIdUseCase {
+export class StreamFileByIdUseCase {
   private readonly _fileCloudRepository: FileCloudRepository
   private readonly _fileDBRepository: FileDBRepository
 
@@ -15,9 +14,20 @@ export class DeleteFileByIdUseCase {
     this._fileDBRepository = fileDBRepository
   }
 
-  async run(params: DeleteFileByIdParams): Promise<File> {
-    await this._fileCloudRepository.removeFile(params.id)
-    const deletedFile = await this._fileDBRepository.deleteFileById(params.id)
-    return deletedFile
+  async run(params: StreamFileByIdParams): Promise<void> {
+    const foundFile = await this._fileDBRepository.getFileById({
+      fileId: params.fileId,
+    })
+
+    if (!foundFile) {
+      params.res.status(404).end()
+      return
+    }
+
+    await this._fileCloudRepository.streamingFile(
+      foundFile.fileName,
+      params.res
+    )
+    params.res.status(200).end()
   }
 }

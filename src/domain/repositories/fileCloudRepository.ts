@@ -1,5 +1,18 @@
 import { Response } from "express"
 
+export interface UploadFile_FileCloudRepository {
+  fileBuffer: Buffer
+  fileName: string
+}
+
+export interface StreamingFile_FileCloudRepository {
+  fileId: string
+}
+
+export interface RemoveFile_FileCloudRepository {
+  fileName: string
+}
+
 // Los objetos no se pueden actualizar simplemente se borran y se crean nuevos, por eso no hay update
 export interface FileCloudRepository {
   // El retorno va con respecto a que retornaría el método en si, por ejemplo el buscar o te tirá el usuario porque lo encontró la DB o un null porque no lo encontró. Los errores ya son manejados por el caso de uso
@@ -8,6 +21,7 @@ export interface FileCloudRepository {
   // Should return fileName
 
   // fileBuffer: A Buffer containing the entire file.
-  uploadFile: (fileBuffer: Buffer, fileId: string) => Promise<void>
-  removeFile: (fileId: string) => Promise<void>
+  // uploadFile: (fileBuffer: Buffer, fileName: string) => Promise<void>
+  uploadFile: (params: UploadFile_FileCloudRepository) => Promise<void>
+  removeFile: (params: RemoveFile_FileCloudRepository) => Promise<void>
 }

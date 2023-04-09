@@ -1,22 +1,22 @@
 // * EXCEPTIONS
-import { MissingFieldInParamsException } from "../../../../../domain/exceptions/MissingFieldInParamsException"
+import { z } from "zod"
 
 // * TYPES AND INTERFACES
 import { Request } from "express"
-import { DeleteFileByIdParams } from "../../../../../domain/utils/interfaces"
+import { DeleteFileParams } from "../../../../../domain/utils/interfaces"
 
-export const deleteFileByIdDto = (req: Request): DeleteFileByIdParams => {
-  if (req.params === undefined || req.params === null) {
-    throw new MissingFieldInParamsException()
-  }
-
-  const { fileId } = req.params
-
-  if (fileId === undefined || fileId === null || fileId === "") {
-    throw new MissingFieldInParamsException()
+export const deleteFileByIdDto = (req: Request): DeleteFileParams => {
+  const fileIdSchema = z.object({
+    fileId: z.string().uuid(),
+    fileName: z.string(),
+  })
+  const isValidFileIdSchema = fileIdSchema.safeParse(req.params)
+  if (!isValidFileIdSchema.success) {
+    throw isValidFileIdSchema.error
   }
 
   return {
-    id: fileId,
+    fileId: isValidFileIdSchema.data.fileId,
+    fileName: isValidFileIdSchema.data.fileName,
   }
 }

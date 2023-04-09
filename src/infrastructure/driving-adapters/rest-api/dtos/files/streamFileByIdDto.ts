@@ -14,7 +14,7 @@ export const streamFileByIdDto = (
     throw new MissingFieldInParamsException()
   }
 
-  const fileIdSchema = z.string().nonempty()
+  const fileIdSchema = z.string().uuid().nonempty()
   const validFileIdSchema = fileIdSchema.safeParse(req.params.fileId)
 
   if (!validFileIdSchema.success) {

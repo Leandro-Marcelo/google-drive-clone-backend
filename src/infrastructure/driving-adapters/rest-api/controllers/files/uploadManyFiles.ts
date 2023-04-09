@@ -8,10 +8,6 @@ import { UploadManyFilesUseCase } from "../../../../../application/usecases/file
 import { MySQLFileDBRepository } from "../../../../implementations/mysql/MySQLFileDBRepository"
 import { UuidV4Generator } from "../../../../utils/uuidV4Generator"
 import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
-import {
-  CreateFileDBInput,
-  FileUploadInput,
-} from "../../../../../domain/utils/interfaces"
 import { uploadManyFilesDto } from "../../dtos/files/uploadManyFilesDto"
 import { MySQLFolderDBRepository } from "../../../../implementations/mysql/MySQLFolderDBRepository"
 
@@ -24,7 +20,6 @@ export const uploadManyFiles = async (
 ): Promise<void> => {
   try {
     const uploadManyFilesParams = uploadManyFilesDto(req)
-
     const gcpFileCloudRepository = new GCPFileCloudRepository()
     const mySQLFileDBRepository = new MySQLFileDBRepository()
     const mySQLFolderDBRepository = new MySQLFolderDBRepository()
@@ -39,8 +34,6 @@ export const uploadManyFiles = async (
     const uploadedFiles = await uploadManyFilesUseCase.run(
       uploadManyFilesParams
     )
-
-    console.log(uploadedFiles)
 
     res.status(200).json(uploadedFiles)
     return

@@ -1,9 +1,9 @@
+import { MySQLFileDBRepository } from "./../../../../implementations/mysql/MySQLFileDBRepository"
 // * TYPES AND INTERFACES
-import { StreamFileByIdParams } from "../../../../../domain/utils/interfaces"
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { StreamFileByIdUseCase } from "../../../../../application/usecases/files/StreamFileById"
+import { StreamFileByIdUseCase } from "../../../../../application/usecases/files/StreamFileByIdUseCase"
 
 // * REPOSITORIES
 import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
@@ -19,8 +19,10 @@ export const streamFileById = async (
   try {
     const streamFileByIdParams = streamFileByIdDto(req, res)
     const gcpFileCloudRepository = new GCPFileCloudRepository()
+    const mySQLFileDBRepository = new MySQLFileDBRepository()
     const streamFileByIdUseCase = new StreamFileByIdUseCase(
-      gcpFileCloudRepository
+      gcpFileCloudRepository,
+      mySQLFileDBRepository
     )
     await streamFileByIdUseCase.run(streamFileByIdParams)
     return

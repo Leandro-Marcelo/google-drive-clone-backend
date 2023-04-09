@@ -1,4 +1,8 @@
-import { FileCloudRepository } from "../../../../domain/repositories/fileCloudRepository"
+import {
+  FileCloudRepository,
+  RemoveFile_FileCloudRepository,
+  UploadFile_FileCloudRepository,
+} from "../../../../domain/repositories/fileCloudRepository"
 import { CloudStorage } from "../../../driven-adapters/gcp/cloudStorage"
 import { GCP_CLOUD_STORAGE_BUCKET_NAME } from "../../../../domain/configs"
 import { Response } from "express"
@@ -31,11 +35,13 @@ export class GCPFileCloudRepository implements FileCloudRepository {
     })
   }
 
-  async removeFile(fileId: string): Promise<void> {
+  async removeFile({
+    fileName,
+  }: RemoveFile_FileCloudRepository): Promise<void> {
     // reference to the file on the cloud storage
     const cloudFile = this._storage
       .bucket(GCP_CLOUD_STORAGE_BUCKET_NAME)
-      .file(fileId)
+      .file(fileName)
     try {
       // Http response
       await cloudFile.delete()
@@ -49,11 +55,14 @@ export class GCPFileCloudRepository implements FileCloudRepository {
   }
 
   // If you save a file with the same name, GCP overwrites it.
-  async uploadFile(fileBuffer: Buffer, fileId: string): Promise<void> {
+  async uploadFile({
+    fileBuffer,
+    fileName,
+  }: UploadFile_FileCloudRepository): Promise<void> {
     // reference to the file on the cloud storage
     const cloudFile = this._storage
       .bucket(GCP_CLOUD_STORAGE_BUCKET_NAME)
-      .file(fileId)
+      .file(fileName)
     const fileStream = Readable.from(fileBuffer)
     return new Promise((resolve, reject) => {
       fileStream

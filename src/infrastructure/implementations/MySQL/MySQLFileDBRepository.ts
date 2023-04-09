@@ -1,10 +1,27 @@
 import { File } from "../../../domain/entities/file"
-import { FileDBRepository } from "../../../domain/repositories/fileDBRepository"
+import {
+  ExistFileById_FileDBRepository,
+  FileDBRepository,
+} from "../../../domain/repositories/fileDBRepository"
 import { CreateFileDBInput } from "../../../domain/utils/interfaces"
 import { PrismaDBClient } from "../../driven-adapters/prisma"
 
 export class MySQLFileDBRepository implements FileDBRepository {
   private readonly _prismaClient = PrismaDBClient.getInstance()
+
+  async existFileById({
+    fileId,
+  }: ExistFileById_FileDBRepository): Promise<boolean> {
+    const foundFile = await this._prismaClient.file.findUnique({
+      where: {
+        id: fileId,
+      },
+      select: {
+        id: true,
+      },
+    })
+    return foundFile !== null
+  }
 
   async getRootFiles(currentUserId: string): Promise<File[]> {
     const files = await this._prismaClient.file.findMany({
@@ -39,7 +56,9 @@ export class MySQLFileDBRepository implements FileDBRepository {
     })
   }
 
-  async getFileById(fileId: string): Promise<File | null> {
+  async getFileById({
+    fileId,
+  }: ExistFileById_FileDBRepository): Promise<File | null> {
     const foundFile = await this._prismaClient.file.findUnique({
       where: {
         id: fileId,

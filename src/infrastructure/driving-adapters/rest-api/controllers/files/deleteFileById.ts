@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { DeleteFileByIdUseCase } from "../../../../../application/usecases/files/DeleteFileById"
+import { DeleteFileUseCase } from "../../../../../application/usecases/files/DeleteFile"
 
 // * REPOSITORIES
 import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
@@ -20,11 +20,11 @@ export const deleteFileById = async (
     const deleteFileByIdParams = deleteFileByIdDto(req)
     const gcpFileCloudRepository = new GCPFileCloudRepository()
     const mySQLFileDBRepository = new MySQLFileDBRepository()
-    const deleteFileByIdUseCase = new DeleteFileByIdUseCase(
+    const deleteFileUseCase = new DeleteFileUseCase(
       gcpFileCloudRepository,
       mySQLFileDBRepository
     )
-    const deletedFIle = await deleteFileByIdUseCase.run(deleteFileByIdParams)
+    const deletedFIle = await deleteFileUseCase.run(deleteFileByIdParams)
     res.status(200).json(deletedFIle)
   } catch (err) {
     return next(err)

@@ -62,21 +62,25 @@ export class UploadManyFilesUseCase {
     const promises = params.files.map(async (file, idx) => {
       // console.log(`file ${idx + 1} started`)
       const ext = path.extname(file.originalname)
-      const newFileId = `${this._uuidGenerator.generate()}${ext}`
+      const fileId = this._uuidGenerator.generate()
+      const fileName = `${fileId}${ext}`
       try {
         const newFile: CreateFileDBInput = {
-          id: newFileId,
-          fileName: newFileId,
+          id: fileId,
+          fileName: fileName,
           originalName: file.originalname,
           userId: params.currentUser.id,
-          imgSrc: `${REST_API_URL}/api/files/${newFileId}`,
-          folderId: params.folderId === "null" || null ? null : params.folderId,
+          imgSrc: `${REST_API_URL}/api/files/${fileName}`,
+          folderId: params.folderId,
         }
 
         const createdFile = await this._fileDBRepository.createFile(newFile)
         // TODO: Manejar error como en el uploadFile, que haga un reject con el mensaje de error
         // handled error in the cloud repository
-        await this._fileCloudRepository.uploadFile(file.buffer, newFileId)
+        await this._fileCloudRepository.uploadFile({
+          fileBuffer: file.buffer,
+          fileName: fileName,
+        })
 
         return createdFile
       } catch (err: any) {
@@ -100,14 +104,14 @@ export class UploadManyFilesUseCase {
         if (err instanceof Exception) {
           if (err.code === "UploadFileToCloudException") {
             try {
-              await this._fileDBRepository.deleteFileById(newFileId)
+              await this._fileDBRepository.deleteFileById(fileId)
             } catch (err: any) {}
             errMsg = err.message
           }
         }
 
         throw {
-          id: newFileId,
+          id: fileId,
           originalName: file.originalname,
           message: errMsg,
         }
