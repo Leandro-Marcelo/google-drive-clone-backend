@@ -17,9 +17,9 @@ export class UpdateFolderByIdUseCase {
   }
 
   async run(params: UpdateFolderByIdParams): Promise<Folder> {
-    const foundFolder = await this._folderRepository.getFolderById(
-      params.folderId
-    )
+    const foundFolder = await this._folderRepository.getFolderById({
+      folderId: params.folderId,
+    })
     if (foundFolder === null) {
       throw new NotFoundException("folder")
     }

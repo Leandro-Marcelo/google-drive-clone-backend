@@ -1,6 +1,9 @@
 import { File } from "../../../domain/entities/file"
 import { Folder } from "../../../domain/entities/folder"
-import { FolderDBRepository } from "../../../domain/repositories/folderDBRepository"
+import {
+  FolderDBRepository,
+  GetFolderById_FolderDBRepository,
+} from "../../../domain/repositories/folderDBRepository"
 import {
   CreateFolderInputDB,
   UpdateFolderInput,
@@ -9,6 +12,17 @@ import { PrismaDBClient } from "../../driven-adapters/prisma"
 
 export class MySQLFolderDBRepository implements FolderDBRepository {
   private readonly _prismaClient = PrismaDBClient.getInstance()
+
+  async getFolderById({
+    folderId,
+  }: GetFolderById_FolderDBRepository): Promise<Folder | null> {
+    const foundFolder = await this._prismaClient.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+    })
+    return foundFolder
+  }
 
   async existFolderById(folderId: string): Promise<boolean> {
     const foundFolder = await this._prismaClient.folder.findUnique({
