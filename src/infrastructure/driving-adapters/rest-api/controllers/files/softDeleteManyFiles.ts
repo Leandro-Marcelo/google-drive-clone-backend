@@ -2,30 +2,28 @@
 import { NextFunction, Request, Response } from "express"
 
 // * USE CASES
-import { DeleteManyFilesUseCase } from "../../../../../application/usecases/files/DeleteManyFiles"
+import { SoftDeleteManyFilesUseCase } from "../../../../../application/usecases/files/SoftDeleteManyFiles"
 
 // * REPOSITORIES
 import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
 import { MySQLFileDBRepository } from "../../../../implementations/mysql/MySQLFileDBRepository"
 
 // * DTO
-import { deleteManyFilesDto } from "../../dtos/files/deleteManyFilesDto"
+import { softDeleteManyFilesDto } from "../../dtos/files/softDeleteManyFilesDto"
 
-export const deleteFileById = async (
+export const softDeleteManyFiles = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const filesIdsToDelete = deleteManyFilesDto(req)
-    const gcpFileCloudRepository = new GCPFileCloudRepository()
+    const filesIds = softDeleteManyFilesDto(req)
     const mySQLFileDBRepository = new MySQLFileDBRepository()
-    const deleteManyFilesUseCase = new DeleteManyFilesUseCase(
-      gcpFileCloudRepository,
+    const softDeleteManyFilesUseCase = new SoftDeleteManyFilesUseCase(
       mySQLFileDBRepository
     )
-    const deletedFIle = await deleteManyFilesUseCase.run(filesIdsToDelete)
-    res.status(200).json(deletedFIle)
+    const updatedFilesDB = await softDeleteManyFilesUseCase.run(filesIds)
+    res.status(200).json(updatedFilesDB)
   } catch (err) {
     return next(err)
   }

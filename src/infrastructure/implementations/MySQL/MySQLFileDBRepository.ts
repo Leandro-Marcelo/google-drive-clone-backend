@@ -44,6 +44,7 @@ export class MySQLFileDBRepository implements FileDBRepository {
       where: {
         folderId: null,
         userId: currentUserId,
+        softDeleted: false,
       },
     })
     return files

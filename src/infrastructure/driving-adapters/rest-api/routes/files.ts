@@ -2,7 +2,6 @@
 import express, { Request, Response } from "express"
 
 // * CONTROLLERS
-import { createUser } from "../controllers/users/createUser"
 import { uploadManyFiles } from "../controllers/files/uploadManyFiles"
 import { isAuth } from "../middlewares/isAuth"
 import multerUpload from "../middlewares/multerUpload"
@@ -10,6 +9,7 @@ import { deleteFileById } from "../controllers/files/deleteFileById"
 import { streamFileById } from "../controllers/files/streamFileById"
 import { getRootFiles } from "../controllers/files/getRootFiles"
 import { updateFileById } from "../controllers/files/updateFileById"
+import { softDeleteManyFiles } from "../controllers/files/softDeleteManyFiles"
 
 const router = express.Router()
 
@@ -19,16 +19,22 @@ const router = express.Router()
 
 router.get("/root", [isAuth], getRootFiles)
 
+router.get("/:fileName", streamFileById)
+
 router.post(
   "/uploadMany",
   [isAuth, multerUpload.array("files")],
   uploadManyFiles
 )
 
-router.post("/", createUser)
-router.get("/:fileName", streamFileById)
-router.delete("/:fileId", deleteFileById)
+router.put("/softDeleteMany", softDeleteManyFiles)
+
+router.post("/deleteMany", (req: Request, res: Response) => {
+  res.send("delete many files")
+})
 
 router.put("/:fileId", updateFileById)
+
+router.delete("/:fileId", deleteFileById)
 
 export default router

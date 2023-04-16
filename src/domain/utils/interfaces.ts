@@ -101,7 +101,10 @@ export interface AuthenticatedUser {
 }
 
 // # FILES: USE CASES AND SERVICES
-export type UpdateFileDBInput = Pick<File, "originalName" | "folderId">
+export type UpdateFileDBInput = Pick<
+  File,
+  "originalName" | "folderId" | "softDeleted"
+>
 
 export type CreateFileDBInput = Omit<File, "createdAt" | "updatedAt">
 
@@ -117,6 +120,20 @@ export interface FileUploadInput {
 }
 
 export type UploadedFile =
+  | {
+      status: "fulfilled"
+      value: File
+    }
+  | {
+      status: "rejected"
+      reason: {
+        id: string
+        originalName: string
+        message: string
+      }
+    }
+
+export type DeletedFile =
   | {
       status: "fulfilled"
       value: File
@@ -146,10 +163,9 @@ export interface UpdateFileByIdParams {
   data: UpdateFileDBInput
 }
 
-export interface DeleteFileParams {
-  fileId: string
-  fileName: string
-}
+export type SoftDeleteManyFilesParams = Pick<File, "id">[]
+
+export type DeleteManyFilesParams = Pick<File, "id" | "fileName">[]
 
 // # FOLDER USE CASES AND SERVICES
 export interface CreateFolderInput {
