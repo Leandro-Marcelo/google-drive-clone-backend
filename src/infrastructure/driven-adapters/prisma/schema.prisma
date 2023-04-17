@@ -52,6 +52,7 @@ model Folder {
   childFolders   Folder[] @relation("folderTofolder")
   user           User     @relation(fields: [userId], references: [id], map: "Folder_userId_fkey")
   files          File[]
+  softDeleted    Boolean  @default(false)
 
   @@index([parentFolderId], map: "Folder_parentFolderId_fkey")
   @@index([userId], map: "Folder_userId_fkey")

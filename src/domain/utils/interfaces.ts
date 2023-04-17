@@ -1,6 +1,7 @@
 import { User } from "../entities/user"
 import { File } from "../entities/file"
 import { Response } from "express"
+import { Folder } from "../entities/folder"
 
 export type CurrentUser = Omit<User, "password">
 
@@ -178,19 +179,19 @@ export interface CreateFolderInputDB extends CreateFolderInput {
   id: string
 }
 
-export interface UpdateFolderInput {
-  originalName: string
-  parentFolderId: string | null
-}
-
 export interface CreateFolderParams {
   data: CreateFolderInput
   currentUser: CurrentUser
 }
 
+export type UpdateFolderDBInput = Pick<
+  Folder,
+  "originalName" | "parentFolderId" | "softDeleted"
+>
+
 export interface UpdateFolderByIdParams {
   folderId: string
-  data: UpdateFolderInput
+  data: UpdateFolderDBInput
 }
 
 export interface DeleteFolderByIdParams {

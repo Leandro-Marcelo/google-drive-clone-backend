@@ -5,7 +5,6 @@ import { NextFunction, Request, Response } from "express"
 import { SoftDeleteManyFilesUseCase } from "../../../../../application/usecases/files/SoftDeleteManyFiles"
 
 // * REPOSITORIES
-import { GCPFileCloudRepository } from "../../../../implementations/gcp/cloudStorage/GCPFileCloudRepository"
 import { MySQLFileDBRepository } from "../../../../implementations/mysql/MySQLFileDBRepository"
 
 // * DTO

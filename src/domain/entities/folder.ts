@@ -7,4 +7,5 @@ export interface Folder {
   userId: string
   updatedAt: Date
   parentFolderId: string | null
+  softDeleted: boolean
 }

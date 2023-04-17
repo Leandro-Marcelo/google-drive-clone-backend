@@ -3,11 +3,9 @@ import { Folder } from "../../../domain/entities/folder"
 import {
   FolderDBRepository,
   GetFolderById_FolderDBRepository,
+  UpdateFolderById_FolderDBRepository,
 } from "../../../domain/repositories/folderDBRepository"
-import {
-  CreateFolderInputDB,
-  UpdateFolderInput,
-} from "../../../domain/utils/interfaces"
+import { CreateFolderInputDB } from "../../../domain/utils/interfaces"
 import { PrismaDBClient } from "../../driven-adapters/prisma"
 
 export class MySQLFolderDBRepository implements FolderDBRepository {
@@ -41,6 +39,7 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
       where: {
         parentFolderId: null,
         userId: currentUserId,
+        softDeleted: false,
       },
     })
     return folders
@@ -55,14 +54,13 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
   }
 
   async updateFolderById(
-    folderId: string,
-    updateFolderInput: UpdateFolderInput
+    params: UpdateFolderById_FolderDBRepository
   ): Promise<Folder> {
     return await this._prismaClient.folder.update({
       where: {
-        id: folderId,
+        id: params.folderId,
       },
-      data: updateFolderInput,
+      data: params.data,
     })
   }
 
@@ -81,7 +79,7 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
       })
     | null
   > {
-    const foundFile = await this._prismaClient.folder.findUnique({
+    const foundFolder = await this._prismaClient.folder.findUnique({
       where: {
         id: folderId,
       },
@@ -90,6 +88,6 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
         childFolders: true,
       },
     })
-    return foundFile
+    return foundFolder
   }
 }

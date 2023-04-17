@@ -1,6 +1,7 @@
 import { FileCloudRepository } from "../../../domain/repositories/fileCloudRepository"
 import { FileDBRepository } from "../../../domain/repositories/fileDBRepository"
 import { StreamFileByFileNameParams } from "../../../domain/utils/interfaces"
+import getContentTypeByFileName from "../../../infrastructure/driving-adapters/rest-api/utils/getContentTypeByFileName"
 
 export class StreamFileByIdUseCase {
   private readonly _fileCloudRepository: FileCloudRepository
@@ -24,6 +25,8 @@ export class StreamFileByIdUseCase {
       return
     }
 
+    const contentType = getContentTypeByFileName(params.fileName)
+    params.res.setHeader("Content-Type", contentType)
     await this._fileCloudRepository.streamingFile(params.fileName, params.res)
     params.res.status(200).end()
   }

@@ -1,9 +1,14 @@
 import { File } from "../entities/file"
 import { Folder } from "../entities/folder"
-import { CreateFolderInputDB, UpdateFolderInput } from "../utils/interfaces"
+import { CreateFolderInputDB, UpdateFolderDBInput } from "../utils/interfaces"
 
 export interface GetFolderById_FolderDBRepository {
   folderId: string
+}
+
+export interface UpdateFolderById_FolderDBRepository {
+  folderId: string
+  data: UpdateFolderDBInput
 }
 
 export interface FolderDBRepository {
@@ -15,8 +20,7 @@ export interface FolderDBRepository {
   deleteFolderById: (folderId: string) => Promise<Folder>
   getRootFolders: (currentUserId: string) => Promise<Folder[]>
   updateFolderById: (
-    folderId: string,
-    createFolderInputDB: UpdateFolderInput
+    params: UpdateFolderById_FolderDBRepository
   ) => Promise<Folder>
   getFolderContents: (folderId: string) => Promise<
     | (Folder & {
