@@ -7,7 +7,7 @@ import {
 
 export const createFolderDto = (req: Request): CreateFolderParams => {
   const createFolderSchema = z.object({
-    originalName: z.string().min(3),
+    originalName: z.string().min(1),
     parentFolderId: z.string().nullable(),
   })
 
