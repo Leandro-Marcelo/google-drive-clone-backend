@@ -10,6 +10,7 @@ export const updateFileByIdDto = (req: Request): UpdateFileByIdParams => {
   const bodySchema = z.object({
     originalName: z.string().min(3),
     folderId: z.string().uuid().nullable(),
+    softDeleted: z.boolean(),
   })
 
   const isValidParamsSchema = paramsSchema.safeParse(req.params)
@@ -27,6 +28,7 @@ export const updateFileByIdDto = (req: Request): UpdateFileByIdParams => {
     data: {
       originalName: isValidBodySchema.data.originalName,
       folderId: isValidBodySchema.data.folderId,
+      softDeleted: isValidBodySchema.data.softDeleted,
     },
   }
 }

@@ -55,15 +55,12 @@ export class GCPFileCloudRepository implements FileCloudRepository {
   }
 
   // If you save a file with the same name, GCP overwrites it.
-  async uploadFile({
-    fileBuffer,
-    fileName,
-  }: UploadFile_FileCloudRepository): Promise<void> {
-    // reference to the file on the cloud storage
+  async uploadFile(params: UploadFile_FileCloudRepository): Promise<void> {
+    // reference to the file on the cloud storage.
     const cloudFile = this._storage
       .bucket(GCP_CLOUD_STORAGE_BUCKET_NAME)
-      .file(fileName)
-    const fileStream = Readable.from(fileBuffer)
+      .file(params.fileName)
+    const fileStream = Readable.from(params.file)
     return new Promise((resolve, reject) => {
       fileStream
         .pipe(cloudFile.createWriteStream())

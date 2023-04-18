@@ -51,7 +51,7 @@ export class UploadManyFilesUseCase {
       file 4 started
       false
       file 5 started
-      false
+      <false></false>
       folder not found
       folder not found
       folder not found
@@ -78,15 +78,17 @@ export class UploadManyFilesUseCase {
         // TODO: Manejar error como en el uploadFile, que haga un reject con el mensaje de error
         // handled error in the cloud repository
         await this._fileCloudRepository.uploadFile({
-          fileBuffer: file.buffer,
+          file: file.buffer,
           fileName: fileName,
         })
 
         return createdFile
       } catch (err: any) {
+        console.log(err)
         let errMsg = ""
 
         if (err instanceof Prisma.PrismaClientKnownRequestError) {
+          //  P2003 <=> Foreign key constraint failed on the field: {folderId} is because the folderId does not exist
           if (err.code === "P2003") {
             if (err.meta) {
               if (err.meta.field_name) {
@@ -101,6 +103,7 @@ export class UploadManyFilesUseCase {
           }
         }
 
+        // Handle error the _fileCloudRepository.uploadFile
         if (err instanceof Exception) {
           if (err.code === "UploadFileToCloudException") {
             try {
@@ -113,7 +116,7 @@ export class UploadManyFilesUseCase {
         throw {
           id: fileId,
           originalName: file.originalname,
-          message: errMsg,
+          message: errMsg || err.message,
         }
       }
     })

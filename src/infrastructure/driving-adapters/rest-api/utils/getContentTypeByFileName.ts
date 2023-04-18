@@ -3,8 +3,6 @@ import { extname } from "path"
 
 export default function getContentTypeByFileName(fileName: string) {
   const ext = extname(fileName).split(".")[1]
-  console.log(ext)
-  console.log(typeof ext)
 
   if (ext === "apng") {
     return "image/apng"

@@ -1,7 +1,8 @@
 import { Response } from "express"
+import { Readable } from "stream"
 
 export interface UploadFile_FileCloudRepository {
-  fileBuffer: Buffer
+  file: Buffer | Readable
   fileName: string
 }
 
@@ -20,7 +21,7 @@ export interface FileCloudRepository {
   // Pasamos un buffer porque tanto en AWS como en GCP necesitan de un fileName que sea único y el archivo en buffer o el buffer del archivo que es lo mismo xd
   // Should return fileName
 
-  // fileBuffer: A Buffer containing the entire file.
+  // fileBuffer: A Buffer containing the entire <file class=""></file>
   // uploadFile: (fileBuffer: Buffer, fileName: string) => Promise<void>
   uploadFile: (params: UploadFile_FileCloudRepository) => Promise<void>
   removeFile: (params: RemoveFile_FileCloudRepository) => Promise<void>

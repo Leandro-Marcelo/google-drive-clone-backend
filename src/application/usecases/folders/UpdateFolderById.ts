@@ -1,11 +1,5 @@
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException"
-import {
-  UpdateFolderByIdParams,
-  UpdateFolderInput,
-  UpdateUserByIdParams,
-  UserCreateInput,
-} from "../../../domain/utils/interfaces"
-import { User } from "../../../domain/entities/user"
+import { UpdateFolderByIdParams } from "../../../domain/utils/interfaces"
 import { FolderDBRepository } from "../../../domain/repositories/folderDBRepository"
 import { Folder } from "../../../domain/entities/folder"
 
@@ -24,9 +18,6 @@ export class UpdateFolderByIdUseCase {
       throw new NotFoundException("folder")
     }
 
-    return await this._folderRepository.updateFolderById(
-      params.folderId,
-      params.data
-    )
+    return await this._folderRepository.updateFolderById(params)
   }
 }

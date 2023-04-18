@@ -37,7 +37,7 @@ router.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500)
   // TODO:send a better message to the frontend
   return res.json({
-    error: err,
+    error: "an error ocurred",
   })
 })
 

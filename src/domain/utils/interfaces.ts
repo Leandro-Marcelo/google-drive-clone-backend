@@ -1,6 +1,6 @@
 import { User } from "../entities/user"
 import { File } from "../entities/file"
-import { Response } from "express"
+import { Request, Response } from "express"
 import { Folder } from "../entities/folder"
 
 export type CurrentUser = Omit<User, "password">
@@ -107,7 +107,10 @@ export type UpdateFileDBInput = Pick<
   "originalName" | "folderId" | "softDeleted"
 >
 
-export type CreateFileDBInput = Omit<File, "createdAt" | "updatedAt">
+export type CreateFileDBInput = Omit<
+  File,
+  "createdAt" | "updatedAt" | "softDeleted"
+>
 
 export interface FileUploadInput {
   // Name of the file on the uploader's computer.
@@ -147,6 +150,13 @@ export type DeletedFile =
         message: string
       }
     }
+
+export interface UploadFilesParams {
+  currentUser: Omit<User, "password">
+  folderId: string | null
+  req: Request
+  res: Response
+}
 
 export interface UploadManyFilesParams {
   currentUser: Omit<User, "password">

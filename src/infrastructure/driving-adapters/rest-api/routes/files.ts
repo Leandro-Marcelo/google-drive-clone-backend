@@ -10,6 +10,7 @@ import { streamFileById } from "../controllers/files/streamFileById"
 import { getRootFiles } from "../controllers/files/getRootFiles"
 import { updateFileById } from "../controllers/files/updateFileById"
 import { softDeleteManyFiles } from "../controllers/files/softDeleteManyFiles"
+import { uploadFiles } from "../controllers/files/uploadFiles"
 
 const router = express.Router()
 
@@ -20,6 +21,8 @@ const router = express.Router()
 router.get("/root", [isAuth], getRootFiles)
 
 router.get("/:fileName", streamFileById)
+
+router.post("/upload/:folderId", [isAuth], uploadFiles)
 
 router.post(
   "/uploadMany",

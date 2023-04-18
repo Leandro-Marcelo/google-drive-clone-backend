@@ -84,8 +84,16 @@ export class MySQLFolderDBRepository implements FolderDBRepository {
         id: folderId,
       },
       include: {
-        files: true,
-        childFolders: true,
+        files: {
+          where: {
+            softDeleted: false,
+          },
+        },
+        childFolders: {
+          where: {
+            softDeleted: false,
+          },
+        },
       },
     })
     return foundFolder
